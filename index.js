@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 9000;
-const DATABASEIP = process.env.LOCALIP || 'host.docker.internal'; //Don't supply a local ip for docker deployment
+const DATABASEIP = process.env.DATABASEIP || 'localhost';
 
 app.use(morgan('dev'));
 
@@ -19,7 +19,7 @@ run();
 
 async function main() {
   console.log('Connecting to database')
-  await mongoose.connect(`mongodb://${DATABASEIP}:27017/products`);
+  await mongoose.connect(`mongodb://${process.env.DBUSER}:${process.env.DBPW}@${DATABASEIP}:27017/products`);
   console.log('Connected to database');
 
   app.get('/products', async (req, res) => {
