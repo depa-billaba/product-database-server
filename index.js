@@ -19,7 +19,7 @@ run();
 
 async function main() {
   console.log('Connecting to database')
-  await mongoose.connect(`mongodb://host.docker.internal:27017/products`);
+  await mongoose.connect(`mongodb://${DATABASEIP}:27017/products`);
   console.log('Connected to database');
 
   app.get('/products', async (req, res) => {
