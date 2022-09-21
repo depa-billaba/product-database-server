@@ -21,9 +21,7 @@ module.exports = {
     return product;
   },
   getStyles: async function (id) {
-    let hello = 'hello';
     const product = (await Product.findOne({ id }));
-    if(hello === 'hello') console.log('hello');
     if (product === null) return null;
     return {
       product_id: id,
