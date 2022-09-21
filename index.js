@@ -23,21 +23,37 @@ async function main() {
   console.log('Connected to database');
 
   app.get('/products', async (req, res) => {
-    const page = req.query.page;
-    const count = req.query.count;
+    const page = Number(req.query.page) || 1;
+    let count = Number(req.query.count) || 5;
+    if(count > 20) count = 20;
     const response = await database.getPage(page, count);
+    if (response === null) {
+      res.status(404);
+      res.send('Product not found');
+      return;
+    }
     res.status(200);
     res.send(response);
   });
 
   app.get('/:id/styles', async (req, res) => {
     const response = await database.getStyles(req.params.id);
+    if (response === null) {
+      res.status(404);
+      res.send('Product not found');
+      return;
+    }
     res.status(200);
     res.send(response);
   });
 
   app.get('/:id/related', async (req, res) => {
     const response = await database.getRelated(req.params.id);
+    if (response === null) {
+      res.status(404);
+      res.send('Product not found');
+      return;
+    }
     res.status(200);
     res.send(response);
   });
