@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 9000;
 const DATABASEIP = process.env.DATABASEIP || 'localhost';
 
-app.use(morgan('dev'));
+app.use(express.static(__dirname + '/public'));
 
 const run = () => {main().catch(err => {
   console.log(err);
